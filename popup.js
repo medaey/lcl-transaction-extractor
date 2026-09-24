@@ -1,6 +1,14 @@
 let extractedData = [];
 let currentSelectedIndex = 0;
 
+const tabsContainer = document.getElementById('monthTabs');
+if (tabsContainer) {
+  tabsContainer.addEventListener('wheel', (evt) => {
+    evt.preventDefault();
+    tabsContainer.scrollLeft += evt.deltaY;
+  });
+}
+
 document.getElementById('extractBtn').addEventListener('click', async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -8,12 +16,17 @@ document.getElementById('extractBtn').addEventListener('click', async () => {
     target: { tabId: tab.id },
     func: extractLCLTransactions
   }, (results) => {
-    const statusEl = document.getElementById('statusBar');
+    const statusCard = document.getElementById('statusCard');
+    const statusIcon = document.getElementById('statusIcon');
+    const statusText = document.getElementById('statusText');
+
     if (results && results[0] && results[0].result) {
       extractedData = results[0].result;
 
       if (extractedData.length === 0) {
-        statusEl.textContent = "⚠️ Aucune liste d'opérations trouvée sur cette page.";
+        statusCard.className = "status-card info";
+        statusIcon.textContent = "⚠️";
+        statusText.textContent = "Aucune liste d'opérations trouvée sur cette page LCL.";
         return;
       }
 
@@ -22,9 +35,16 @@ document.getElementById('extractBtn').addEventListener('click', async () => {
 
       let totalOps = 0;
       extractedData.forEach(item => totalOps += item.values.length);
-      statusEl.textContent = `✓ ${totalOps} opérations extraites sur ${extractedData.length} mois.`;
+
+      document.getElementById('copyBtn').disabled = false;
+
+      statusCard.className = "status-card success";
+      statusIcon.textContent = "✓";
+      statusText.innerHTML = `<span class="status-badge-count">${totalOps} opérations</span> extraites sur <strong>${extractedData.length} mois</strong>.`;
     } else {
-      statusEl.textContent = "❌ Erreur : Impossible de lire la page.";
+      statusCard.className = "status-card info";
+      statusIcon.textContent = "❌";
+      statusText.textContent = "Impossible d'accéder à la page courante.";
     }
   });
 });
@@ -49,7 +69,6 @@ function renderTabs() {
 
 function parseAmount(valStr) {
   if (!valStr) return 0;
-  // Nettoyer la chaîne: enlever €, espaces et espaces insecables, remplacer virgule par point
   let cleaned = valStr.replace(/[^0-9,-]/g, '').replace(',', '.');
   let num = parseFloat(cleaned);
   return isNaN(num) ? 0 : num;
@@ -125,11 +144,11 @@ document.getElementById('copyBtn').addEventListener('click', () => {
   }
 
   navigator.clipboard.writeText(textToCopy.trim()).then(() => {
-    const statusEl = document.getElementById('statusBar');
-    const prevText = statusEl.textContent;
-    statusEl.textContent = "✓ Liste copiée dans le presse-papiers !";
+    const statusText = document.getElementById('statusText');
+    const prevText = statusText.innerHTML;
+    statusText.textContent = "✓ Liste copiée dans le presse-papiers !";
     setTimeout(() => {
-      statusEl.textContent = prevText;
+      statusText.innerHTML = prevText;
     }, 2000);
   });
 });
