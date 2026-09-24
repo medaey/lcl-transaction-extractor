@@ -47,6 +47,18 @@ function renderTabs() {
   });
 }
 
+function parseAmount(valStr) {
+  if (!valStr) return 0;
+  // Nettoyer la chaîne: enlever €, espaces et espaces insecables, remplacer virgule par point
+  let cleaned = valStr.replace(/[^0-9,-]/g, '').replace(',', '.');
+  let num = parseFloat(cleaned);
+  return isNaN(num) ? 0 : num;
+}
+
+function formatEuro(val) {
+  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(val);
+}
+
 function selectMonth(index) {
   currentSelectedIndex = index;
   const monthData = extractedData[index];
@@ -54,9 +66,25 @@ function selectMonth(index) {
 
   const ops = monthData.values || [];
   
+  let totalExpenses = 0;
+  let totalIncome = 0;
+
+  ops.forEach(val => {
+    let amount = parseAmount(val);
+    if (amount < 0) {
+      totalExpenses += Math.abs(amount);
+    } else {
+      totalIncome += amount;
+    }
+  });
+
   document.getElementById('emptyState').style.display = 'none';
   document.getElementById('dataHeader').style.display = 'flex';
+  document.getElementById('summaryGrid').style.display = 'grid';
   document.getElementById('opsList').style.display = 'block';
+
+  document.getElementById('totalExpense').textContent = `- ${formatEuro(totalExpenses)}`;
+  document.getElementById('totalIncome').textContent = `+ ${formatEuro(totalIncome)}`;
 
   document.getElementById('currentMonthTitle').textContent = monthData.monthName || `Mois ${index + 1}`;
   document.getElementById('currentMonthCount').textContent = `${ops.length} opération${ops.length > 1 ? 's' : ''}`;

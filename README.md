@@ -1,58 +1,46 @@
 # LCL — Extrait d'Opérations Bancaires (Extension Chrome)
 
-Extension Chrome / Edge / Brave permettant d'extraire automatiquement et de structurer l'historique de vos opérations bancaires depuis votre espace client **LCL**.
-
 <p align="center">
-  <img src="preview.png" alt="Aperçu de l'extension LCL" width="800"/>
+  <img src="preview.jpeg" alt="Aperçu de l'extension LCL" width="600"/>
 </p>
+
+Extension Chrome / Edge / Brave permettant d'extraire automatiquement, de calculer les totaux et de structurer l'historique de vos opérations bancaires depuis votre espace client **LCL**.
 
 ---
 
 ## 🚀 Fonctionnalités
 
-- **Découpage automatique par mois** : Récupère les vrais titres des mois via les balises de la page.
+- **Calcul automatique des Totaux** :
+  - 💸 **Dépenses (Sorties)** : Additionne automatiquement toutes les opérations négatives du mois.
+  - 💰 **Gains (Rentrées)** : Additionne automatiquement toutes les opérations positives du mois.
+- **Découpage automatique par mois** : Récupère les vrais titres des mois affichés sur la page.
 - **Interface moderne avec onglets** : Naviguez d'un mois à l'autre en un clic.
-- **Affichage clair** : Distinction automatique des débits (en rouge) et des crédits (en vert).
-- **Copie au presse-papiers** : Copiez facilement la liste du mois sélectionné pour la coller dans Excel ou votre gestionnaire de comptes.
+- **Copie rapide au presse-papiers** : Copiez la liste du mois sélectionné pour la coller directement dans Excel, Google Sheets ou votre gestionnaire de budget.
 
 ---
 
-## 📂 Structure de l'extension
+## 📂 Structure du projet
 
 ```text
-├── manifest.json   # Configuration du Manifest V3
-├── popup.html      # Interface utilisateur de l'extension
-├── popup.js        # Script d'extraction et logique de l'interface
-└── README.md       # Guide d'utilisation et d'installation
+├── manifest.json   # Configuration Manifest V3
+├── popup.html      # Interface graphique de l'extension
+├── popup.js        # Logique d'extraction et calculs
+├── preview.png     # Aperçu pour le README
+└── README.md       # Documentation
 ```
 
 ---
 
-## 🛠️ Installation dans Chrome / Brave / Edge
+## 🛠️ Installation
 
-1. **Téléchargez & Dézippez** l'archive `.zip` dans un dossier de votre choix.
-2. Ouvrez votre navigateur et allez sur `chrome://extensions/`.
-3. Activez le **Mode développeur** (interrupteur en haut à droite).
-4. Cliquez sur **Charger l'extension non empaquetée** (en haut à gauche).
-5. Sélectionnez **le dossier dézippé** (qui contient directement le fichier `manifest.json`).
-
----
-
-## 📖 Utilisation
-
-1. Connectez-vous à votre espace bancaire **LCL** et rendez-vous sur la page du détail de votre compte.
-2. Cliquez sur l'icône de l'extension **LCL Extractions** dans la barre d'outils du navigateur.
-3. Cliquez sur **Extraire tout**.
-4. Naviguez entre les différents mois grâce aux onglets générés.
-5. Cliquez sur **Copier** pour placer la liste des montants du mois sélectionné dans votre presse-papiers.
+1. Téléchargez et dézippez le fichier `.zip`.
+2. Ouvrez votre navigateur et rendez-vous sur `chrome://extensions/`.
+3. Activez le **Mode développeur** (en haut à droite).
+4. Cliquez sur **Charger l'extension non empaquetée**.
+5. Sélectionnez le dossier contenant directement le fichier `manifest.json`.
 
 ---
 
-## 🔍 XPath Utilisés
+## 📝 Licence
 
-- **Titres des mois** :  
-  `//*[@id="main-content"]/app-account-details-page/div[1]/ui-transaction-list/h2[X]/span/span`
-- **Conteneurs des opérations** :  
-  `//*[@id="main-content"]/app-account-details-page/div[1]/ui-transaction-list/ul`
-- **Montants des transactions** :  
-  `.//li/ui-transaction-item/button/span[1]/span[4]/span`
+[MIT License](LICENSE)

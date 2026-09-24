@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "LCL — Extrait d'Opérations",
-  "version": "2.1",
-  "description": "Extraction et découpage élégant des opérations bancaires LCL par mois.",
+  "version": "2.2",
+  "description": "Extraction et calcul des dépenses/gains des opérations bancaires LCL par mois.",
   "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html"
