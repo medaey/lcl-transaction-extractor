@@ -1,10 +1,10 @@
 # LCL — Extrait d'Opérations Bancaires (Extension Chrome)
 
+Extension Chrome / Edge / Brave permettant d'extraire automatiquement, de calculer les totaux et de structurer l'historique de vos opérations bancaires depuis votre espace client **LCL**.
+
 <p align="center">
   <img src="preview.png" alt="Aperçu de l'extension LCL" width="600"/>
 </p>
-
-Extension Chrome / Edge / Brave permettant d'extraire automatiquement, de calculer les totaux et de structurer l'historique de vos opérations bancaires depuis votre espace client **LCL**.
 
 ---
 
