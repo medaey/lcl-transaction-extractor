@@ -2,6 +2,10 @@
 
 Extension Chrome / Edge / Brave permettant d'extraire automatiquement et de structurer l'historique de vos opérations bancaires depuis votre espace client **LCL**.
 
+<p align="center">
+  <img src="preview.png" alt="Aperçu de l'extension LCL" width="800"/>
+</p>
+
 ---
 
 ## 🚀 Fonctionnalités
